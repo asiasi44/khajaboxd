@@ -9,9 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@tanstack/react-query": "^5.66.9",
+    "axios": "^1.7.9",
+    "boring-avatars": "^1.11.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.1",
+    "motion": "^12.4.7",
+    "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.6"
+    "react-flexible-star-rating": "^1.0.7",
+    "react-icons": "^5.4.0",
+    "react-select": "^5.10.0",
+    "react-simple-star-rating": "^5.1.7",
+    "react-star-ratings": "^2.3.0",
+    "react-toastify": "^11.0.3",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "postcss": "^8",
