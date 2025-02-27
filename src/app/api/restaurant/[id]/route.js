@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import Review from "@/models/review";
 import User from "@/models/user";
 
+export const dynamic = 'force-static'
+
 export async function GET(request, { params }) {
   const { id } = await params;
   await connectMongoDB();
