@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import Review from "@/models/review";
 import Restaurant from "@/models/restaurant";
 import mongoose from "mongoose";
+export const dynamic = 'force-static'
 
 export async function POST(request, { params }) {
   const { id } = await params;

@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import connectMongoDB from "@/libs/mongoDb";
 import Restaurant from "@/models/restaurant";
 
+export const dynamic = 'force-static'
+
 const jwt = require("jsonwebtoken");
 
 const cleanToken = (token) => {

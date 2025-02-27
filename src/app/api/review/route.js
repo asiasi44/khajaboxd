@@ -4,6 +4,7 @@ import User from "@/models/user";
 import Restaurant from "@/models/restaurant";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
+export const dynamic = 'force-static'
 
 const jwt = require("jsonwebtoken");
 

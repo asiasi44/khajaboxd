@@ -1,6 +1,7 @@
 import connectMongoDB from "@/libs/mongoDb";
 import List from "@/models/list";
 import { NextResponse } from "next/server";
+export const dynamic = 'force-static'
 
 export async function PUT(request, { params }) {
   const { id } = await params;
