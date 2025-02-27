@@ -4,7 +4,7 @@ import List from "@/models/list";
 import Restaurant from "@/models/restaurant";
 import User from "@/models/user";
 import mongoose from "mongoose";
-export const dynamic = 'force-static'
+
 
 export async function POST(request, { params }) {
   const { id } = await params;

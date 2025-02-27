@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import Review from "@/models/review";
 import Restaurant from "@/models/restaurant";
 
-export const dynamic = 'force-static'
+
 
 export async function GET(request, { params }) {
   const { id } = await params;

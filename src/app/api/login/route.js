@@ -3,7 +3,7 @@ import User from "@/models/user";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
-export const dynamic = 'force-static'
+
 
 const cleanToken = (token) => {
   return token.split("Bearer ")[1];
