@@ -14,9 +14,9 @@ const ReviewSection = ({ restaurantDetails, userReview }) => {
 
   const likeReview = (like, review) => {
     if (like) {
-      dislikeReviewMutation.mutate({ reviewId: review._id });
+      dislikeReviewMutation.mutateAsync({ reviewId: review._id });
     } else {
-      likeReviewMutation.mutate({ reviewId: review._id });
+      likeReviewMutation.mutateAsync({ reviewId: review._id });
     }
   };
 

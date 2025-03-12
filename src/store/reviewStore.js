@@ -36,11 +36,47 @@ export const useLikeReview = () => {
         newLikedUser: userId,
       });
     },
-    onSuccess: () => {
+    onMutate: async ({ reviewId }) => {
+      // Cancel any ongoing restaurant fetch to prevent overwrites
+      await queryClient.cancelQueries(["restaurant"]);
+
+      // Snapshot previous data
+      const previousData = queryClient.getQueryData(["restaurant"]);
+
+      // Optimistically update the cache
+      queryClient.setQueryData(["restaurant"], (oldData) => {
+        if (!oldData) return oldData;
+        return {
+          ...oldData,
+          reviewIds: oldData.reviewIds.map((review) =>
+            review._id === reviewId
+              ? {
+                  ...review,
+                  likedUsers: [...review.likedUsers, userId],
+                  numberOfLikes: (review.numberOfLikes || 0) + 1,
+                }
+              : review
+          ),
+        };
+      });
+
+      return { previousData };
+    },
+    onError: (error, _, context) => {
+      console.error("Error liking review:", error);
+
+      // Rollback to previous data on error
+      if (context?.previousData) {
+        queryClient.setQueryData(["restaurant"], context.previousData);
+      }
+    },
+    onSettled: () => {
+      // Revalidate data after mutation
       queryClient.invalidateQueries(["restaurant"]);
     },
   });
 };
+
 
 export const useDislikeReview = () => {
   const queryClient = useQueryClient();
@@ -52,7 +88,35 @@ export const useDislikeReview = () => {
         data: { newDislikedUser: userId },
       });
     },
-    onSuccess: () => {
+    onMutate: async ({ reviewId }) => {
+      await queryClient.cancelQueries(["restaurant"]);
+      const previousData = queryClient.getQueryData(["restaurant"]);
+
+      queryClient.setQueryData(["restaurant"], (oldData) => {
+        if (!oldData) return oldData;
+        return {
+          ...oldData,
+          reviewIds: oldData.reviewIds.map((review) =>
+            review._id === reviewId
+              ? {
+                  ...review,
+                  likedUsers: review.likedUsers.filter((id) => id !== userId),
+                  numberOfLikes: Math.max((review.numberOfLikes || 0) - 1, 0),
+                }
+              : review
+          ),
+        };
+      });
+
+      return { previousData };
+    },
+    onError: (error, _, context) => {
+      console.error("Error disliking review:", error);
+      if (context?.previousData) {
+        queryClient.setQueryData(["restaurant"], context.previousData);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries(["restaurant"]);
     },
   });
