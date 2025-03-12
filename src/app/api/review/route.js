@@ -5,7 +5,6 @@ import Restaurant from "@/models/restaurant";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 
-
 const jwt = require("jsonwebtoken");
 
 const cleanToken = (token) => {
